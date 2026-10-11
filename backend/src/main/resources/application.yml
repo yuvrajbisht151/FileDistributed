@@ -1,0 +1,25 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: distributed-file-storage
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/dfs}
+    username: ${DB_USERNAME:dfs}
+    password: ${DB_PASSWORD:dfs_password}
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: ${MAX_UPLOAD_SIZE:200MB}
+      max-request-size: ${MAX_UPLOAD_SIZE:200MB}
+
+app:
+  storage:
+    # Folder containing node1/, node2/, node3/ (relative to the backend folder for local runs)
+    root: ${STORAGE_ROOT:../storage}
+    node-names: node1,node2,node3
+    chunk-size-bytes: ${CHUNK_SIZE_BYTES:1048576}

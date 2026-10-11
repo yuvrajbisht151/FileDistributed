@@ -1,0 +1,6 @@
+Distributed File Storage - sample file
+
+This small text file is a handy manual test. Upload it in the File Manager,
+then open its details to see the single chunk, its SHA-256 checksum, and the
+primary and replica nodes. For a file that spans several chunks, use the
+smoke test script, which generates a 2.5 MiB random file.
