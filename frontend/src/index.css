@@ -1,46 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+  }
+
   html,
   body {
-    @apply bg-navy-950 text-slate-200 antialiased;
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    @apply bg-navy-950 font-body text-slate-300 antialiased;
   }
+
   body {
     background-image:
-      radial-gradient(circle at 15% 0%, rgba(139, 92, 246, 0.14), transparent 40%),
-      radial-gradient(circle at 90% 10%, rgba(59, 130, 246, 0.08), transparent 35%);
+      radial-gradient(circle at 10% -5%, rgba(79, 70, 229, 0.08), transparent 38%),
+      radial-gradient(circle at 92% 8%, rgba(14, 165, 233, 0.07), transparent 34%),
+      radial-gradient(circle at 50% 110%, rgba(79, 70, 229, 0.05), transparent 40%);
     background-attachment: fixed;
+  }
+
+  /* Very faint grain so the white background is not flat */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-slate-900;
+  }
+
+  ::selection {
+    background: rgba(79, 70, 229, 0.18);
+    color: #0f172a;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-2 border-navy-950 bg-navy-600;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
   }
 }
 
 @layer components {
   .panel {
-    @apply rounded-2xl border border-white/5 bg-navy-900/80 p-5 shadow-card backdrop-blur;
+    @apply relative rounded-2xl border border-slate-200 bg-navy-900 p-5 shadow-card
+      transition duration-300 hover:border-accent/30 hover:shadow-glow animate-fade-up;
   }
+
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium transition
-      disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold
+      transition duration-200 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40;
   }
+
   .btn-primary {
-    @apply btn bg-accent text-white shadow-lg shadow-accent/20 hover:bg-violet-500;
+    @apply btn bg-gradient-to-r from-accent to-violet-500 text-white shadow-lg shadow-accent/25
+      hover:-translate-y-px hover:brightness-110 hover:shadow-accent/40;
   }
+
   .btn-ghost {
-    @apply btn border border-white/10 bg-white/5 text-slate-200 hover:bg-white/10;
+    @apply btn border border-slate-200 bg-white text-slate-700 shadow-sm
+      hover:border-accent/40 hover:bg-accent/5 hover:text-accent;
   }
+
   .btn-danger {
-    @apply btn border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20;
+    @apply btn border border-rose-200 bg-rose-50 text-rose-700
+      hover:border-rose-300 hover:bg-rose-100;
   }
+
   .input {
-    @apply w-full rounded-xl border border-white/10 bg-navy-950/70 px-3.5 py-2 text-sm text-slate-100
-      placeholder:text-slate-500 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30;
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800
+      placeholder:text-slate-400 transition duration-200 hover:border-slate-300
+      focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20;
   }
+
   .th {
-    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400;
+    @apply px-4 py-3 text-left font-display text-xs font-semibold uppercase tracking-widest text-slate-500;
   }
+
   .td {
-    @apply px-4 py-3 text-sm text-slate-300;
+    @apply px-4 py-3 text-sm text-slate-700;
+  }
+}
+
+/* Respect users who turn off animations in their OS settings */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
